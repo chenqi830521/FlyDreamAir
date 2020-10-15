@@ -1,0 +1,40 @@
+var info = {"bookInfo":
+						[
+							{
+								"bookingReference": "000001",
+								"firstName": "Bill",
+								"lastName": "Gates",
+								"trip":"Sydney - Briseban",
+								"flightTime": "09:00am",
+								"seatNo": "08A",
+								"foodAndDrink": "Combo A"
+							},
+							{
+								"bookingReference": "000002",
+								"firstName": "Scott",
+								"lastName": "Morrision",
+								"trip":"Briseban - Sydney",
+								"flightTime": "13:00pm",
+								"seatNo": "08A",
+								"foodAndDrink": "Combo B"
+							},
+							{
+								"bookingReference": "000007",
+								"firstName": "Roger",
+								"lastName": "Chen",
+								"trip":"Briseban - Sydney",
+								"flightTime": "13:00pm",
+								"seatNo": "07A",
+								"foodAndDrink": "Combo B"
+							},
+							{
+								"bookingReference": "000003",
+								"firstName": "Yanan",
+								"lastName": "Chen",
+								"trip":"Briseban - Sydney",
+								"flightTime": "13:00pm",
+								"seatNo": "06A",
+								"foodAndDrink": "Combo A"
+							}
+						]
+			};

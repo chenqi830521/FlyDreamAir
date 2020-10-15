@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatibale" content="ie=edge">
+		<title>Manage booking | FlyDreamAir</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="info.js"></script>
+		<script>
+			var bookingInfos = info.bookInfo;
+			var bookingReferenceInput = getParams("param1");
+			var lastNameInput = getParams("param2");
+			var recordExist = false;
+
+	
+			function myRefresh(){
+				var bookingIndex = 0;
+				for(var i=0; i<bookingInfos.length; i++){
+					if( (bookingReferenceInput == bookingInfos[i].bookingReference) && 
+						(lastNameInput == bookingInfos[i].lastName)){
+						recordExist = true;
+						bookingIndex = i;
+					}
+				}
+				if(recordExist == true){
+					var bookingReferenceField = document.getElementById("bookingRefereId");
+					bookingReferenceField.innerHTML = bookingInfos[bookingIndex].bookingReference;
+					var firstNameField = document.getElementById("firstNameId");
+					firstNameField.innerHTML = bookingInfos[bookingIndex].firstName;
+					var lastNameField = document.getElementById("lastNameId");
+					lastNameField.innerHTML = bookingInfos[bookingIndex].lastName;
+					var tripField = document.getElementById("tripId");
+					tripField.innerHTML = bookingInfos[bookingIndex].trip;					
+					var flightTimeField = document.getElementById("flightTimeId");
+					flightTimeField.innerHTML = bookingInfos[bookingIndex].flightTime;
+					var seatNoField = document.getElementById("seatNoId");
+					seatNoField.innerHTML = bookingInfos[bookingIndex].seatNo;
+					var foodDrinkField = document.getElementById("foodDrinkId");
+					foodDrinkField.innerHTML = bookingInfos[bookingIndex].foodAndDrink;
+				}
+				else{
+					alert("No record found. Please check the information you input and try again.");
+					var url = "manage_booking.html";
+					window.location.href = url;
+				}
+			}
+	
+			function Cancelbooking(){
+				for(var i=0; i<bookingInfos.length; i++){
+					if( (bookingReferenceInput == bookingInfos[i].bookingReference) && 
+						(lastNameInput == bookingInfos[i].lastName)){
+						info.bookInfo.splice(i,1);  
+						//delete info.bookInfo[i];
+						//delete info.bookInfo[i].firstName;
+						//delete info.bookInfo[i].lastName;
+						//delete info.bookInfo[i].trip;
+						//delete info.bookInfo[i].flightTime;
+						//delete info.bookInfo[i].seatNo;
+						//delete info.bookInfo[i].foodAndDrink;
+					}
+				}
+				alert("Your booking has been cancelled!");
+				var url = "manage_booking.html";
+				window.location.href = url;
+			}
+
+			function changeCancelSeat(){
+				alert("From Yanan");
+				var url = "seat_se_show_info.html?param1=" + bookingReferenceInput + "&param2=" + lastNameInput;
+				window.location.href = url;
+			}
+
+			function changeBuyService(){
+				var url = "service_purchase_options.html?param1=" + bookingReferenceInput + "&param2=" + lastNameInput;
+				window.location.href = url;
+			}
+
+			function getParams(key){
+				// manage-booking-show-info.html?param1=000001&param2=Gates
+	            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+	            var r = window.location.search.substr(1).match(reg);
+	            if (r != null) {
+	                return unescape(r[2]);
+	            }
+	            return null;
+	        }
+
+	/*
+	        window.onload = function () {
+	            var url = "info.json";/*json文件url，本地的就写本地的位置，如果是服务器的就写服务器的路径*/
+	            //var request = new XMLHttpRequest();
+	            //request.open("get", url);/*设置请求方法与路径*/
+	            //request.send(null);/*不发送数据到服务器*/
+	            //request.onload = function () {/*XHR对象获取到返回信息后执行*/
+	                //if (request.status == 200) {/*返回状态为200，即为数据获取成功*/
+	                    //var json = JSON.parse(request.responseText);
+	                    //for(var i=0;i<json.length;i++){
+	                        //console.log(json[i].name);
+	                    //}
+	                    //console.log(json);
+	                //}
+	            //}
+	       //}
+
+	       function processRequest(){
+				{
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function()
+					{
+						if (this.readyState == 4 && this.status == 200){
+								processResponse(this.responseText);
+							}
+					};
+					xhttp.open("GET", "info.json", true);
+					xhttp.send();
+				}
+			}
+
+			function processResponse(jsonText){
+				var response = JSON.parse(jsonText);
+				var output = "";
+				output += "<table>";
+				output += "caption class=\"topic\">" + response.topic + "";
+			}
+		</script>
+	</head>
+
+	<body onload="myRefresh()"><!-- Auto refresh when open -->
+		<header>
+			<div class="main">
+				<div class="logo">
+					<img src="images/logo.png">
+				</div>
+
+				<ul>
+					<li> <a href ="index.html">Home</a></li>
+					<li><a href ="flight_booking.html">Flight booking</a></li>
+					<li class="active"><a href ="manage_booking.html">Manage booking</a></li>
+					<li><a href ="seat_selection.html">Seat selection</a></li>
+					<li><a href ="service_purchase.html">Service purchase</a></li>
+				</ul>
+			</div>
+		</header>
+
+		<div class="title">
+			<table>
+				<tr>
+					<td style="color:white">Booking reference:</td>
+					<td id="bookingRefereId" style="color:white"></td>
+					<td rowspan="5">
+						<button style="height:50px;width:250px;font-size:12pt" onClick = "Cancelbooking()">Cancel booking</button>
+					</td>
+				</tr>
+				<tr>
+					<td style="color:white">First name:</td>
+					<td id="firstNameId" style="color:white"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="color:white">Last name:</td>
+					<td id="lastNameId" style="color:white"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="color:white">Trip:</td>
+					<td id="tripId" style="color:white"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="color:white">Flight time:</td>
+					<td id="flightTimeId" style="color:white"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="color:white">Seat No.:</td>
+					<td id="seatNoId" style="color:white"></td>
+					<!-- button -->
+					<td>
+						<button style="height:50px; width:250px;font-size:12pt" onClick = "changeCancelSeat()">Change or cancel seat</button>
+					</td>
+				</tr>
+				<tr>
+					<td style="color:white">Food and drink:</td>
+					<td id="foodDrinkId" style="color:white"></td>
+					<!-- button -->
+					<td>
+						<button style="height:50px; width:250px;font-size:12pt" onClick = "changeBuyService()">Change or buy service</button>
+					</td>
+				</tr>
+			</table>
+	</body>
+</html>
