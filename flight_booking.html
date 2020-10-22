@@ -8,7 +8,7 @@
 	<header>
 		<div class="main">
 			<div class="logo">
-				<img src="logo.png">
+				<img src="images/logo.png">
 			</div>
 			<ul>
 				<li> <a href ="index.html">Home</a></li>
@@ -23,10 +23,18 @@
 		</div>
 		
 		<div class="button">
-			<a href="#" class="btn">TRIP</a>
-			<a href="#" class="btn">TIME</a>
-			<a href="#" class="btn">CONFIRM</a>
-			<a href="#" class="btn">CLEAR</a>
+			<select name = 'trip' >
+				<option value = "Tr" selected="selected">Trip</option>
+				<option value = "S-B">Sydney to Brisbane</option>
+				<option value = "B-S">Brisbane to Sydney</option>
+			</select>
+			<select name = 'time' >
+				<option value = "Ti" selected="selected">Departure Time</option>
+				<option value = "9">9:00</option>
+				<option value = "3">15:00</option>
+			</select>
+			<a href="#" class="btn" type = "submit" value = 'submit'>CONFIRM</a>
+			<a href="#" class="btn" type = "reset" value = 'reset form'>CLEAR</a>
 		</div>
 	</header>
 </body>
