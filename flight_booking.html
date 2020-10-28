@@ -3,6 +3,30 @@
 <head>
 	<title>Flight Booking | FlyDreamAir</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript">
+		function clearPage()
+		{
+			var tripInput = document.getElementById("trip");
+			tripInput.value = "Tr";
+
+			var timeInput = document.getElementById("time");
+			timeInput.value = "Ti";
+
+			var firstName = document.getElementById("firstname");
+			firstName.value = "";
+
+			var lastName = document.getElementById("lastname");
+			lastName.value = "";
+		}
+
+
+		function confirmPage()
+		{
+			var x = Math.floor.(Math.random()*1000000);
+			var confirmSpan = document.getElementById("bookingNumber");
+			confirmSpan.innerHTML = "Your booking has been confirmed. Booking Number is " + x;
+		}
+	</script>
 </head>
 <body>
 	<header>
@@ -15,26 +39,32 @@
 				<li class="active"><a href ="flight_booking.html">Flight booking</a></li>
 				<li><a href ="manage_booking.html">Manage booking</a></li>
 				<li><a href ="seat_selection.html">Seat selection</a></li>
-				<li><a href ="service_purchase.html">Service purchase</a></li>
+				<li><a href ="service_purchase.html">Service selection</a></li>
 			</ul>
 		</div>
 		<div class="title">
 			<h1>Booking</h1>
 		</div>
+		<br /><br />
 		
 		<div class="button">
-			<select name = 'trip' >
+			<select name = 'trip' id = "trip">
 				<option value = "Tr" selected="selected">Trip</option>
 				<option value = "S-B">Sydney to Brisbane</option>
 				<option value = "B-S">Brisbane to Sydney</option>
 			</select>
-			<select name = 'time' >
+			<select name = 'time' id = "time">
 				<option value = "Ti" selected="selected">Departure Time</option>
 				<option value = "9">9:00</option>
 				<option value = "3">15:00</option>
 			</select>
-			<a href="#" class="btn" type = "submit" value = 'submit'>CONFIRM</a>
-			<a href="#" class="btn" type = "reset" value = 'reset form'>CLEAR</a>
+			<br /><br />
+			First Name: <input type="text" id = "firstname"><br />
+			Last Name: <input type="text" id="lastname">
+			<br /><br />
+			<button href="#" class="btn" onClick = "confirmPage()">CONFIRM</button> 
+			<button href="#" class="btn" onClick = "clearPage()">CLEAR</button>
+			<span id = "bookingNumber"></span>
 		</div>
 	</header>
 </body>

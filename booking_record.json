@@ -1,0 +1,76 @@
+{
+	"bookingRecord":[
+		{
+			"bookingReference": "000370",
+			"firstName": "Kathryn",
+			"lastName": "O'Halloran",
+			"trip":"Brisbane - Sydney",
+			"flightTime": "09:00am",
+			"seatNo": "40A",
+			"foodAndDrink": "Combo A"
+		},
+		{
+			"bookingReference": "000229",
+			"firstName": "Yanni",
+			"lastName": "Dubler",
+			"trip":"Brisbane - Sydney",
+			"flightTime": "15:00pm",
+			"seatNo": "42B",
+			"foodAndDrink": "Combo A"
+		},
+		{
+			"bookingReference": "000229",
+			"firstName": "Yanan",
+			"lastName": "Chen",
+			"trip":"Brisbane - Sydney",
+			"flightTime": "09:00pm",
+			"seatNo": "48F",
+			"foodAndDrink": "Combo B"
+		},
+		{
+			"bookingReference": "000248",
+			"firstName": "Rena",
+			"lastName": "Li",
+			"trip":"Sydney - Brisbane",
+			"flightTime": "09:00pm",
+			"seatNo": "43K",
+			"foodAndDrink": "Combo A"
+		},
+		{
+			"bookingReference": "000500",
+			"firstName": "Jiayu",
+			"lastName": "Shao",
+			"trip":"Sydney - Brisbane",
+			"flightTime": "15:00pm",
+			"seatNo": "46F",
+			"foodAndDrink": "Combo B"
+		},
+		{
+			"bookingReference": "000784",
+			"firstName": "Roger",
+			"lastName": "Chen",
+			"trip":"Brisbane - Sydney",
+			"flightTime": "15:00pm",
+			"seatNo": "47C",
+			"foodAndDrink": "Combo B"
+		},		
+		{
+			"bookingReference": "000002",
+			"firstName": "Scott",
+			"lastName": "Morrision",
+			"trip":"Sydney - Brisbane",
+			"flightTime": "09:00pm",
+			"seatNo": "50H",
+			"foodAndDrink": "Combo B"
+		},
+		{
+			"bookingReference": "000003",
+			"firstName": "Bill",
+			"lastName": "Gates",
+			"trip":"Brisbane - Sydney",
+			"flightTime": "15:00pm",
+			"seatNo": "52C",
+			"foodAndDrink": "Combo A"
+		}
+	]
+}

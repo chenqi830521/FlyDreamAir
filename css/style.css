@@ -62,6 +62,12 @@ ul li.active a{
 	transition: 0.6s ease;
 }
 
+.title h2{
+	color:#87CEFA;
+	font-size:76px;
+	transition: 0.6s ease;
+}
+
 .button{
 	position: absolute;
 	top:65%;

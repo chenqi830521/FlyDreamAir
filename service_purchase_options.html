@@ -5,15 +5,106 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatibale" content="ie=edge">
-	<title>Service purchase | FlyDreamAir</title>
+	<title>Service Selection | FlyDreamAir</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script type="text/javascript" src="info.js"></script>
+	<!--<script type="text/javascript" src="info.js"></script>-->
+	<script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.js"></script>
+	
 	<script>
-		var bookingInfos = info.bookInfo;
+		// var bookingInfos = info.bookInfo;
 		var bookingReferenceInput = getParams("param1");
 		var lastNameInput = getParams("param2");
+		var recordExist = false;
+		var bookingIndex = 0;
+		var bookingRecordObj;
+
+
+		function makeAjaxQuery(){
+			// create an XMLHttpRequest
+			var xhttp = new XMLHttpRequest();
+			// create a handler for the readyState change
+			xhttp.onreadystatechange = function() {
+				readyStateChangeHandler(xhttp);
+			};
+			// making query by async call
+			xhttp.open("GET", "booking_record.json", true);
+			xhttp.send();
+		}
+
+
+		// handler for the readyState change
+		function readyStateChangeHandler(xhttp){
+			if (xhttp.readyState == 4){
+				// readyState = 4 means DONE
+				if(xhttp.status == 200){
+					// status = 200 means OK
+					handleStatusSuccess(xhttp);
+				}else{
+				// status is NOT OK
+				handleStatusFailure(xhttp);
+				}
+			}
+		}
+
+
+		// XMLHttpRequest success
+		function handleStatusSuccess(xhttp){
+			var jsonText = xhttp.responseText;
+			// parse the json into an JS object
+			bookingRecordObj = JSON.parse(jsonText);
+			// alert(1);		
+			// alert(obj.bookingRecord[0].first_name);			
+			// console.log(obj);
+			// display the object on the page
+			// display(bookingRecordObj);
+		}
+
+
+		// XMLHttpRequest failed
+		function handleStatusFailure(xhttp){
+			alert("Request failed.");
+			// display error message
+			var displayDiv = document.getElementById("display");
+			displayDiv.innerHTML = "XMLHttpRequest failed: status " + xhttp.status;
+		}
+
+
+		function myRefresh(){
+			makeAjaxQuery();
+		}
+
 
 		function select(message){
+			var bookingObj = bookingRecordObj.bookingRecord;
+
+			for(var i=0; i<bookingObj.length; i++){
+				if( (bookingReferenceInput == bookingObj[i].bookingReference) && 
+					(lastNameInput == bookingObj[i].lastName)){
+					if(message == "A"){
+						bookingObj[i].foodAndDrink = "Combo A";
+						// update JSON
+						var content = JSON.stringify(bookingRecordObj, null, 2);
+						var blob = new Blob([content], {type:"text/plain; charset=UTF-8"});
+						saveAs(blob, "booking_record.json");
+						alert("You have selected Combo A.");						
+						window.location.href = "service_purchase.html";
+					}
+					else if(message == "B"){
+						bookingObj[i].foodAndDrink = "Combo B";
+						// update JSON
+						var content = JSON.stringify(bookingRecordObj, null, 2);
+						var blob = new Blob([content], {type:"text/plain; charset=UTF-8"});
+						saveAs(blob, "booking_record.json");
+						alert("You have selected Combo B.");
+						window.location.href = "service_purchase.html";
+					}
+				}
+			}
+		}
+
+
+/*
+
 			for(var i=0; i<bookingInfos.length; i++){
 				if((bookingReferenceInput == bookingInfos[i].bookingReference) && 
 					(lastNameInput == bookingInfos[i].lastName)){
@@ -30,6 +121,8 @@
 				}
 			}
 		}
+*/
+
 
 		function getParams(key){
 			// manage-booking-show-info.html?param1=000001&param2=Gates
@@ -43,7 +136,7 @@
 	</script>
 </head>
 
-<body>
+<body onload="myRefresh()">
 	<header>
 		<div class="main">
 			<div class="logo">
@@ -52,12 +145,17 @@
 
 			<ul>
 				<li> <a href ="index.html">Home</a></li>
-				<li><a href ="flight_booing.html">Flight booking</a></li>
+				<li><a href ="flight_booikng.html">Flight booking</a></li>
 				<li><a href ="manage_booking.html">Manage booking</a></li>
 				<li><a href ="seat_selection.html">Seat selection</a></li>
-				<li class="active"><a href ="service_purchase.html">Service purchase</a></li>
+				<li class="active"><a href ="service_purchase.html">Service selection</a></li>
 			</ul>
 		</div>
+		<!--
+		<div class="title">
+			<h2>Service Purchase</h2>
+		</div>
+		-->
 	</header>
 	<br /><br />
 	<div class="title">
@@ -79,9 +177,7 @@
 					<button style="height:50px; width:140px;font-size:12pt" onClick = "select('B')">Select Combo B</button>
 				</td>
 			</tr>	
-
 		</table>
 	</div>
-
 </body>
 </html>

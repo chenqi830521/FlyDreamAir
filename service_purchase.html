@@ -5,8 +5,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatibale" content="ie=edge">
-	<title>Service purchase | FlyDreamAir</title>
+	<title>Service Selection | FlyDreamAir</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="info.js"></script>
 
 	<script>
 	function continueQuery(){
@@ -15,7 +16,8 @@
 		var url = "service_purchase_options.html?param1=" + firstInput.value + "&param2=" + secondInput.value;
 		window.location.href = url;
 	}
-	
+
+
 	function cancel(){
 		// clear the first text field
 		var firstInput = document.getElementById("bookingReferenceId");
@@ -36,65 +38,65 @@
 
 			<ul>
 				<li> <a href ="index.html">Home</a></li>
-				<li><a href ="flight_booing.html">Flight booking</a></li>
+				<li><a href ="flight_booking.html">Flight booking</a></li>
 				<li><a href ="manage_booking.html">Manage booking</a></li>
 				<li><a href ="seat_selection.html">Seat selection</a></li>
-				<li class="active"><a href ="service_purchase.html">Service purchase</a></li>
+				<li class="active"><a href ="service_purchase.html">Service selection</a></li>
 			</ul>
 		</div>
+		<div class="title">
+			<h2>Service selection</h2>
+			<table border="0">
+				<!--Row 1-->
+				<tr>
+					<td style="color: white; font-size:12pt">
+						Booking reference:
+					</td>
+					<td>
+						<!--Text field for booking reference-->
+						<input type="text" name="bookingReference" style="font-size:12pt;height:45px;width:400px" id="bookingReferenceId" />
+					</td>
+				</tr>
+				<!--Row 2-->
+				<tr>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<!--Row 3-->
+				<tr>
+					<td style="color: white; font-size:12pt">
+						 Last name:
+					</td>
+					<td>
+						<!--Text field for last name-->
+						<input type="text" name="lastName" style="font-size:12pt;height:45px;width:400px" id="lastNameId"/>
+					</td>
+				</tr>
+				<!--Row 4-->
+				<tr>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<!--Row 5-->
+				<tr>
+					<td>
+					</td>
+					<td>
+						<!--2 buttons-->
+						<button style="height:50px; width:200px;font-size:12pt" onClick = "continueQuery()">CONTINUE</button>
+						<button style="height:50px; width:200px;font-size:12pt" onClick = "cancel()">CANCEL</button>
+						<!-- Submit botton -->
+						<!-- <input style="height:50px; width:200px;font-size:12pt" type="submit" value="CONTINUE" /> -->
+						<!-- Reset botton -->
+						<!-- <input style="height:50px; width:200px;font-size:12pt" type="reset" value="CANCEL" /> -->
+					</td>
+				</tr>
+			</table>
+		</div>
 	</header>
-
-<div class="title">
-		<!-- <form action="http://www.flydreamair.com" method="get"> -->
-		<table border="0">
-			<!--Row 1-->
-			<tr>
-				<td style="color: white; font-size:12pt">
-					Booking reference:
-				</td>
-				<td>
-					<!--Text field for booking reference-->
-					<input type="text" name="bookingReference" style="font-size:12pt;height:45px;width:400px" id="bookingReferenceId" />
-				</td>
-			</tr>
-			<!--Row 2-->
-			<tr>
-				<td>
-				</td>
-				<td>
-				</td>
-			</tr>
-			<!--Row 3-->
-			<tr>
-				<td style="color: white; font-size:12pt">
-					 Last name:
-				</td>
-				<td>
-					<!--Text field for last name-->
-					<input type="text" name="lastName" style="font-size:12pt;height:45px;width:400px" id="lastNameId"/>
-				</td>
-			</tr>
-			<!--Row 4-->
-			<tr>
-				<td>
-				</td>
-				<td>
-				</td>
-			</tr>
-			<!--Row 5-->
-			<tr>
-				<td>
-				</td>
-				<td>
-					<!--2 buttons-->
-					<button style="height:50px; width:200px;font-size:12pt" onClick = "continueQuery()">CONTINUE</button>
-					<button style="height:50px; width:200px;font-size:12pt" onClick = "cancel()">CANCEL</button>
-					<!-- Submit botton -->
-					<!-- <input style="height:50px; width:200px;font-size:12pt" type="submit" value="CONTINUE" /> -->
-					<!-- Reset botton -->
-					<!-- <input style="height:50px; width:200px;font-size:12pt" type="reset" value="CANCEL" /> -->
-				</td>
-			</tr>
-		</table>
 </body>
 </html>
