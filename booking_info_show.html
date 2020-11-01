@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flight booking | FlyDreamAir</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script>
+		// url = "booking_info_show.html?param1=" + x + "&param2=" + tripInput.value + "&param3=" + timeInput.value + "&param4=" + firstName.value + "&param5=" + lastName.value;
+	    var bookingReference = getParams("param1");
+	    // alert(bookingReferenceInput);
+	    var tripInput = getParams("param2");
+	    // alert(tripInput);
+	    var timeInput = getParams("param3");
+	    // alert(timeInput);
+		var firstName = getParams("param4");
+		// alert(firstName);
+	   	var lastName = getParams("param5");
+	   	// alert(lastName);
+
+		// get the params from url  
+      	function getParams(key){
+	        // manage-booking-show-info.html?param1=000001&param2=Gates
+	        var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+	        var r = window.location.search.substr(1).match(reg);
+	        if (r != null) {
+	          return unescape(r[2]);
+	        }
+	        return null;
+      	}
+
+      	// refresh page
+      	function myRefresh(){
+      		// alert(window.location.href);
+      		var confirmSpan = document.getElementById("bookingNumber");
+			// show details
+			confirmSpan.innerHTML = "<table border='0'><tr><td>Booking reference: </td><td>" + bookingReference + "</td></tr>"
+				                  + "<tr><td>Name: </td><td>" + firstName + " " + lastName + "</td></tr>"
+				                  + "<tr><td>Trip: </td><td>" + tripInput + "</td></tr>"
+				                  + "<tr><td>Flight time: </td><td>" + timeInput + "</td></tr></table>";
+      	}
+
+
+		function returnBook(){
+			var url = "flight_booking.html";
+			window.location.href = url;
+		}
+	</script>
+</head>
+
+<body onload="myRefresh()">
+	<header>
+		<div class="main">
+			<div class="logo">
+				<img src="images/logo.png">
+			</div>
+			<ul>
+				<li> <a href ="index.html">Home</a></li>
+				<li class="active"><a href ="flight_booking.html">Flight booking</a></li>
+				<li><a href ="manage_booking.html">Manage booking</a></li>
+				<li><a href ="seat_selection.html">Seat selection</a></li>
+				<li><a href ="service_purchase.html">Service purchase</a></li>
+			</ul>
+		</div>
+	</header>
+	<div class="title">
+		<h2>Booking info</h2>
+		<span style="color: white; font-size:12pt" id = "bookingNumber"></span>
+		<br /><br />
+		<button style="height:50px; width:400px;font-size:12pt;" href="#" class="btn" onClick = "returnBook()">RETURN</button> 
+	</div>
+</body>
+</html>

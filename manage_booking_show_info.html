@@ -1,272 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatibale" content="ie=edge">
-		<title>Manage booking | FlyDreamAir</title>
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<!--<script type="text/javascript" src="info.js"></script>-->
-		<script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.js"></script>
-		<script>
-			//var bookingInfos = info.bookInfo;
-			var bookingReferenceInput = getParams("param1");
-			// alert(bookingReferenceInput);
-			var lastNameInput = getParams("param2");
-			// alert(lastNameInput);
-			var recordExist = false;
-			var bookingIndex = 0;
-			var obj;
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatibale" content="ie=edge">
+    <title>Manage booking | FlyDreamAir</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="info.js"></script>
+    <script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.js"></script>
+    <script>
+      //var bookingInfos = info.bookInfo;
+      var bookingReferenceInput = getParams("param1");
+      // alert(bookingReferenceInput);
+      var lastNameInput = getParams("param2");
+      // alert(lastNameInput);
+      var recordExist = false;
+      var bookingIndex = 0;
+      var obj;
 
 
-	        // refresh page
-			function myRefresh(){
-				makeAjaxQuery();
-			}
-	
+      // refresh page
+      function myRefresh(){
+        makeAjaxQuery();
+      }
+  
 
-			// get the params from url	
-			function getParams(key){
-				// manage-booking-show-info.html?param1=000001&param2=Gates
-	            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
-	            var r = window.location.search.substr(1).match(reg);
-	            if (r != null) {
-	                return unescape(r[2]);
-	            }
-	            return null;
-	        }
-
-
-			function makeAjaxQuery(){
-				// create an XMLHttpRequest
-				var xhttp = new XMLHttpRequest();
-				// create a handler for the readyState change
-				xhttp.onreadystatechange = function() {
-					readyStateChangeHandler(xhttp);
-				};
-				// making query by async call
-				xhttp.open("GET", "booking_record.json", true);
-				xhttp.send();
-			}
+      // get the params from url  
+      function getParams(key){
+        // manage-booking-show-info.html?param1=000001&param2=Gates
+        var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+          return unescape(r[2]);
+        }
+        return null;
+      }
 
 
-			// handler for the readyState change
-			function readyStateChangeHandler(xhttp){
-				if (xhttp.readyState == 4){
-					// readyState = 4 means DONE
-					if(xhttp.status == 200){
-						// status = 200 means OK
-						handleStatusSuccess(xhttp);
-					}else{
-					// status is NOT OK
-					handleStatusFailure(xhttp);
-					}
-				}
-			}
+      function makeAjaxQuery(){
+        // create an XMLHttpRequest
+        var xhttp = new XMLHttpRequest();
+        // create a handler for the readyState change
+        xhttp.onreadystatechange = function() {
+          readyStateChangeHandler(xhttp);
+        };
+        // making query by async call
+        xhttp.open("GET", "booking_record.json", true);
+        xhttp.send();
+      }
 
 
-			// XMLHttpRequest success
-			function handleStatusSuccess(xhttp){
-				var jsonText = xhttp.responseText;
-				// parse the json into an JS object
-				obj = JSON.parse(jsonText);
-				// console.log(obj);
-				// display the object on the page
-				display(obj);
-			}
+      // handler for the readyState change
+      function readyStateChangeHandler(xhttp){
+        if (xhttp.readyState == 4){
+          // readyState = 4 means DONE
+          if(xhttp.status == 200){
+            // status = 200 means OK
+            handleStatusSuccess(xhttp);
+          }else{
+          // status is NOT OK
+          handleStatusFailure(xhttp);
+          }
+        }
+      }
 
 
-			// XMLHttpRequest failed
-			function handleStatusFailure(xhttp){
-				alert("Request failed.");
-				// display error message
-				var displayDiv = document.getElementById("display");
-				displayDiv.innerHTML = "XMLHttpRequest failed: status " + xhttp.status;
-			}
-
-			
-			// display 
-			function display(Obj){
-				// construct HTML code to display test result
-				var html = "<table border='0'>";
-				var bookingObj = Obj.bookingRecord;
-
-				for(var i=0; i<bookingObj.length; i++){
-					if( (bookingReferenceInput == bookingObj[i].bookingReference) && 
-						(lastNameInput == bookingObj[i].lastName)){
-						recordExist = true;
-						bookingIndex = i;
-					}
-				}
-
-				if(recordExist == true){
-					var bookingObjInput = bookingObj[bookingIndex];
-					// alert(bookingObjInput.bookingReference);
-
-					html += "<tr>"
-				        	+ "<td style='color:white'>Booking reference:</td>"
-				        	+ "<td id='bookingRefereId' style='color:white'>" + bookingObjInput.bookingReference + "</td>"
-				        	+ "<td rowspan='5'>"
-						    + "<button style='height:50px;width:250px;font-size:12pt' onClick = 'Cancelbooking()'>Cancel booking</button>"
-					        + "</td>"
-						+"</tr>";
-
-					html += "<tr>"
-				        	+ "<td style='color:white'>First name:</td>"
-				        	+ "<td id='firstNameId' style='color:white'>" + bookingObjInput.firstName + "</td>"
-				        	//+ "<td></td>"
-						+"</tr>";
-					html += "<tr>"
-				        	+ "<td style='color:white'>Last name:</td>"
-				        	+ "<td id='lastNameId' style='color:white'>" + bookingObjInput.lastName + "</td>"
-				        	//+ "<td></td>"
-						+"</tr>";
-					html += "<tr>"
-				        	+ "<td style='color:white'>Trip:</td>"
-				        	+ "<td id='tripId' style='color:white'>" + bookingObjInput.trip + "</td>"
-				        	//+ "<td></td>"
-						+"</tr>";
-					html += "<tr>"
-				        	+ "<td style='color:white'>Flight time:</td>"
-				        	+ "<td id='flightTimeId' style='color:white'>" + bookingObjInput.flightTime + "</td>"
-				        	+ "<td></td>"
-						+"</tr>";
-					html += "<tr>"
-				        	+ "<td style='color:white'>Seat No.:</td>"
-				        	+ "<td id='seatNoId' style='color:white'>" + bookingObjInput.seatNo + "</td>"
-				        	+ "<td><button style='height:50px;width:250px;font-size:12pt' onClick = 'changeCancelSeat()'>Change or cancel seat</button></td>"
-						+"</tr>";
-					html += "<tr>"
-				        	+ "<td style='color:white'>Food and drink:</td>"
-				        	+ "<td id='foodDrinkId' style='color:white'>" + bookingObjInput.foodAndDrink + "</td>"
-			        	    + "<td><button style='height:50px;width:250px;font-size:12pt' onClick = 'changeBuyService()'>Change or buy service</button></td>"
-						+"</tr>";
-				}else{
-					alert("No record found. Please check the information you input and try again.");
-					var url = "manage_booking.html";
-					window.location.href = url;
-				}
-				html += "</table>";
-
-				// show the constructed HTML code in the display div
-				var displayDiv = document.getElementById("display");
-				displayDiv.innerHTML = html;
-			}
-			
-
-			function Cancelbooking(){
-
-				var bookingObj = obj.bookingRecord;
-
-				for(var i=0; i<bookingObj.length; i++){
-					if( (bookingReferenceInput == bookingObj[i].bookingReference) && 
-						(lastNameInput == bookingObj[i].lastName)){
-						bookingObj.splice(i,1);  
-						//delete info.bookInfo[i];
-						//delete info.bookInfo[i].firstName;
-						//delete info.bookInfo[i].lastName;
-						//delete info.bookInfo[i].trip;
-						//delete info.bookInfo[i].flightTime;
-						//delete info.bookInfo[i].seatNo;
-						//delete info.bookInfo[i].foodAndDrink;
-					}
-				}
-				// console.log(obj);
-
-				// update JSON
-				var content = JSON.stringify(obj, null, 2);
-				var blob = new Blob([content], {type:"text/plain; charset=UTF-8"});
-				saveAs(blob, "booking_record.json");
-				
-				alert("Your booking has been cancelled!");
-				var url = "manage_booking.html";
-				window.location.href = url;
-			}
+      // XMLHttpRequest success
+      function handleStatusSuccess(xhttp){
+        var jsonText = xhttp.responseText;
+        // parse the json into an JS object
+        obj = JSON.parse(jsonText);
+        // console.log(obj);
+        // display the object on the page
+        display(obj);
+      }
 
 
-			// jump to seat selection page
-			function changeCancelSeat(){
-				var url = "seat_selection.html?param1=" + bookingReferenceInput + "&param2=" + lastNameInput;
-				window.location.href = url;
-			}
+      // XMLHttpRequest failed
+      function handleStatusFailure(xhttp){
+        alert("Request failed.");
+        // display error message
+        var displayDiv = document.getElementById("display");
+        displayDiv.innerHTML = "XMLHttpRequest failed: status " + xhttp.status;
+      }
+
+      
+      // display 
+      function display(Obj){
+        // construct HTML code to display test result
+        var html = "<table border='0'>";
+        var bookingObj = Obj.bookingRecord;
+
+        for(var i=0; i<bookingObj.length; i++){
+          if( (bookingReferenceInput == bookingObj[i].bookingReference) && 
+            (lastNameInput == bookingObj[i].lastName)){
+            recordExist = true;
+            bookingIndex = i;
+          }
+        }
+
+        if(recordExist == true){
+          var bookingObjInput = bookingObj[bookingIndex];
+          // alert(bookingObjInput.bookingReference);
+
+          html += "<tr>"
+                  + "<td style='color:white'>Booking reference:</td>"
+                  + "<td id='bookingRefereId' style='color:white'>" + bookingObjInput.bookingReference + "</td>"
+                  + "<td rowspan='5'>"
+                + "<button style='height:50px;width:250px;font-size:12pt' onClick = 'Cancelbooking()' class='btn'>Cancel booking</button>"
+                  + "</td>"
+            +"</tr>";
+
+          html += "<tr>"
+                  + "<td style='color:white'>First name:</td>"
+                  + "<td id='firstNameId' style='color:white'>" + bookingObjInput.firstName + "</td>"
+                  //+ "<td></td>"
+            +"</tr>";
+          html += "<tr>"
+                  + "<td style='color:white'>Last name:</td>"
+                  + "<td id='lastNameId' style='color:white'>" + bookingObjInput.lastName + "</td>"
+                  //+ "<td></td>"
+            +"</tr>";
+          html += "<tr>"
+                  + "<td style='color:white'>Trip:</td>"
+                  + "<td id='tripId' style='color:white'>" + bookingObjInput.trip + "</td>"
+                  //+ "<td></td>"
+            +"</tr>";
+          html += "<tr>"
+                  + "<td style='color:white'>Flight time:</td>"
+                  + "<td id='flightTimeId' style='color:white'>" + bookingObjInput.flightTime + "</td>"
+                  + "<td></td>"
+            +"</tr>";
+          html += "<tr>"
+                  + "<td style='color:white'>Seat No.:</td>"
+                  + "<td id='seatNoId' style='color:white'>" + bookingObjInput.seatNo + "</td>"
+                  + "<td><button style='height:50px;width:250px;font-size:12pt' onClick = 'changeCancelSeat()' class='btn'>Select seat</button></td>"
+            +"</tr>";
+          html += "<tr>"
+                  + "<td style='color:white'>Food and drink:</td>"
+                  + "<td id='foodDrinkId' style='color:white'>" + bookingObjInput.foodAndDrink + "</td>"
+                    + "<td><button style='height:50px;width:250px;font-size:12pt' onClick = 'changeBuyService()' class='btn'>Select service</button></td>"
+            +"</tr>";
+        }else{
+          alert("No record found! Please check the information you input and try again.");
+          var url = "manage_booking.html";
+          window.location.href = url;
+        }
+        html += "</table>";
+
+        // show the constructed HTML code in the display div
+        var displayDiv = document.getElementById("display");
+        displayDiv.innerHTML = html;
+      }
+      
+
+      function Cancelbooking(){
+
+        var bookingObj = obj.bookingRecord;
+
+        for(var i=0; i<bookingObj.length; i++){
+          if( (bookingReferenceInput == bookingObj[i].bookingReference) && 
+            (lastNameInput == bookingObj[i].lastName)){
+            bookingObj.splice(i,1);  
+            //delete info.bookInfo[i];
+            //delete info.bookInfo[i].firstName;
+            //delete info.bookInfo[i].lastName;
+            //delete info.bookInfo[i].trip;
+            //delete info.bookInfo[i].flightTime;
+            //delete info.bookInfo[i].seatNo;
+            //delete info.bookInfo[i].foodAndDrink;
+          }
+        }
+        // console.log(obj);
+
+        // update JSON
+        // var content = JSON.stringify(obj, null, 2);
+        // var blob = new Blob([content], {type:"text/plain; charset=UTF-8"});
+        // saveAs(blob, "booking_record.json");
+        
+        alert("Your booking has been cancelled!");
+        var url = "manage_booking.html";
+        window.location.href = url;
+      }
 
 
-			// jump to service purchase page
-			function changeBuyService(){
-				var url = "service_purchase_options.html?param1=" + bookingReferenceInput + "&param2=" + lastNameInput;
-				window.location.href = url;
-			}
-		</script>
-	</head>
+      // jump to seat selection page
+      function changeCancelSeat(){
+        var url = "seat_map.html?param1=" + bookingReferenceInput + "&param2=" + lastNameInput;
+        window.location.href = url;
+      }
 
-	<body onload="myRefresh()"><!-- Auto refresh when open -->
-		<header>
-			<div class="main">
-				<div class="logo">
-					<img src="images/logo.png">
-				</div>
 
-				<ul>
-					<li> <a href ="index.html">Home</a></li>
-					<li><a href ="flight_booking.html">Flight booking</a></li>
-					<li class="active"><a href ="manage_booking.html">Manage booking</a></li>
-					<li><a href ="seat_selection.html">Seat selection</a></li>
-					<li><a href ="service_purchase.html">Service selection</a></li>
-				</ul>
-			</div>
-			<!--
-			<div class="title">
-				<h2>Manage Booking</h2>
-			</div>
-			-->
-		</header>
-		<div class="title" id="display"></div>
-	</body>
+      // jump to service purchase page
+      function changeBuyService(){
+        var url = "service_purchase_options.html?param1=" + bookingReferenceInput + "&param2=" + lastNameInput;
+        window.location.href = url;
+      }
+    </script>
+  </head>
+
+  <body onload="myRefresh()"><!-- Auto refresh when open -->
+    <header>
+      <div class="main">
+        <div class="logo">
+          <img src="images/logo.png">
+        </div>
+
+        <ul>
+          <li> <a href ="index.html">Home</a></li>
+          <li><a href ="flight_booking.html">Flight booking</a></li>
+          <li class="active"><a href ="manage_booking.html">Manage booking</a></li>
+          <li><a href ="seat_selection.html">Seat selection</a></li>
+          <li><a href ="service_purchase.html">Service selection</a></li>
+        </ul>
+      </div>
+      <!--
+      <div class="title">
+        <h2>Manage Booking</h2>
+      </div>
+      -->
+    </header>
+    <div class="title" id="display"></div>
+  </body>
 </html>
 
 <!--
 <table>
-	<tr>
-		<td style="color:white">Booking reference:</td>
-		<td id="bookingRefereId" style="color:white"></td>
-		<td rowspan="5">
-			<button style="height:50px;width:250px;font-size:12pt" onClick = "Cancelbooking()">Cancel booking</button>
-		</td>
-	</tr>
-	<tr>
-		<td style="color:white">First name:</td>
-		<td id="firstNameId" style="color:white"></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td style="color:white">Last name:</td>
-		<td id="lastNameId" style="color:white"></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td style="color:white">Trip:</td>
-		<td id="tripId" style="color:white"></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td style="color:white">Flight time:</td>
-		<td id="flightTimeId" style="color:white"></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td style="color:white">Seat No.:</td>
-		<td id="seatNoId" style="color:white"></td>
-		<td>
-			<button style="height:50px; width:250px;font-size:12pt" onClick = "changeCancelSeat()">Change or cancel seat</button>
-		</td>
-	</tr>
-	<tr>
-		<td style="color:white">Food and drink:</td>
-		<td id="foodDrinkId" style="color:white"></td>
-		<td>
-			<button style="height:50px; width:250px;font-size:12pt" onClick = "changeBuyService()">Change or buy service</button>
-		</td>
-	</tr>
+  <tr>
+    <td style="color:white">Booking reference:</td>
+    <td id="bookingRefereId" style="color:white"></td>
+    <td rowspan="5">
+      <button style="height:50px;width:250px;font-size:12pt" onClick = "Cancelbooking()">Cancel booking</button>
+    </td>
+  </tr>
+  <tr>
+    <td style="color:white">First name:</td>
+    <td id="firstNameId" style="color:white"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td style="color:white">Last name:</td>
+    <td id="lastNameId" style="color:white"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td style="color:white">Trip:</td>
+    <td id="tripId" style="color:white"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td style="color:white">Flight time:</td>
+    <td id="flightTimeId" style="color:white"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td style="color:white">Seat No.:</td>
+    <td id="seatNoId" style="color:white"></td>
+    <td>
+      <button style="height:50px; width:250px;font-size:12pt" onClick = "changeCancelSeat()">Change or cancel seat</button>
+    </td>
+  </tr>
+  <tr>
+    <td style="color:white">Food and drink:</td>
+    <td id="foodDrinkId" style="color:white"></td>
+    <td>
+      <button style="height:50px; width:250px;font-size:12pt" onClick = "changeBuyService()">Change or buy service</button>
+    </td>
+  </tr>
 </table>
 -->

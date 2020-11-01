@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Flight Booking | FlyDreamAir</title>
+	<title>Flight booking | FlyDreamAir</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script type="text/javascript">
-		function clearPage()
+	<script>
+		
+		function clearInfo()
 		{
 			var tripInput = document.getElementById("trip");
 			tripInput.value = "Tr";
@@ -20,13 +21,34 @@
 		}
 
 
-		function confirmPage()
-		{
-			var x = Math.floor.(Math.random()*1000000);
-			var confirmSpan = document.getElementById("bookingNumber");
-			confirmSpan.innerHTML = "Your booking has been confirmed. Booking Number is " + x;
+		function confirmInfo(){
+			// get details
+			var tripInput = document.getElementById("trip");
+			var timeInput = document.getElementById("time");
+			var firstName = document.getElementById("firstname");
+			var lastName = document.getElementById("lastname");
+
+			if(tripInput.value != "" && timeInput.value != "" && firstName.value != "" && lastName.value != ""){
+				var x = Math.floor(Math.random()*1000000);
+				var confirmSpan = document.getElementById("bookingNumber");
+				alert("Your flight has been booked successfully! Please check the details.");
+				var url = "booking_info_show.html?param1=" + x + "&param2=" + tripInput.value + "&param3=" + timeInput.value + "&param4=" + firstName.value + "&param5=" + lastName.value;
+				window.location.href = url;
+							
+				// show details
+				/*
+				confirmSpan.innerHTML = "Booking reference: " + x + "<br />"
+				                      + "Name: " + firstName.value + " " + lastName.value + "<br />"
+				                      + "Trip: " + tripInput.value + "<br />"
+				                      + "Flight time: " + timeInput.value + "<br />";
+				*/
+			}
+			else{
+				alert("Please select and input the information of your flight.");
+			}
 		}
 	</script>
+
 </head>
 <body>
 	<header>
@@ -39,33 +61,85 @@
 				<li class="active"><a href ="flight_booking.html">Flight booking</a></li>
 				<li><a href ="manage_booking.html">Manage booking</a></li>
 				<li><a href ="seat_selection.html">Seat selection</a></li>
-				<li><a href ="service_purchase.html">Service selection</a></li>
+				<li><a href ="service_purchase.html">Service purchase</a></li>
 			</ul>
 		</div>
 		<div class="title">
-			<h1>Booking</h1>
-		</div>
-		<br /><br />
-		
-		<div class="button">
-			<select name = 'trip' id = "trip">
-				<option value = "Tr" selected="selected">Trip</option>
-				<option value = "S-B">Sydney to Brisbane</option>
-				<option value = "B-S">Brisbane to Sydney</option>
-			</select>
-			<select name = 'time' id = "time">
-				<option value = "Ti" selected="selected">Departure Time</option>
-				<option value = "9">9:00</option>
-				<option value = "3">15:00</option>
-			</select>
-			<br /><br />
-			First Name: <input type="text" id = "firstname"><br />
-			Last Name: <input type="text" id="lastname">
-			<br /><br />
-			<button href="#" class="btn" onClick = "confirmPage()">CONFIRM</button> 
-			<button href="#" class="btn" onClick = "clearPage()">CLEAR</button>
-			<span id = "bookingNumber"></span>
+			<h2>Flight booking</h2>
+			<table border="0">
+				<!--Row 1-->
+				<tr>
+					<td style="color: white; font-size:12pt">
+						Trip:
+					</td>
+					<td>
+						<select style="height:50px; width:400px;font-size:12pt;" name = 'trip' id = "trip">
+							<option value = "Sydney(SYD) - Brisbane(BNE)">Sydney to Brisbane</option>
+							<option value = "Brisbane(BNE) - Sydney(SYD)">Brisbane to Sydney</option>
+						</select>
+					</td>
+				</tr>
+				<!--Row 2-->				
+				<tr>
+					<td style="color: white; font-size:12pt">
+						Flight time:
+					</td>
+					<td>
+						<select style="height:50px; width:400px;font-size:12pt;" name = 'time' id = "time">
+							<option value = "09.00 am">09.00 am</option>
+							<option value = "15.00 pm">15.00 pm</option>
+						</select>
+					</td>
+				</tr>
+				<!--Row 3-->
+				<tr>
+					<td style="color: white; font-size:12pt">
+						First Name: 
+					</td>
+					<td>
+						<input style="font-size:12pt;height:45px;width:400px" type="text" id = "firstname"><br>
+					</td>
+				</tr>
+				<!--Row 4-->
+				<tr>
+					<td style="color: white; font-size:12pt">
+						Last Name: 
+					</td>
+					<td>
+						<input style="font-size:12pt;height:45px;width:400px" type="text" id="lastname">
+					</td>
+				</tr>
+				<!--Row 5-->
+				<tr>
+					<td>
+					</td>					
+					<td>
+						<button style="height:50px; width:200px;font-size:12pt;" href="#" class="btn" onClick = "confirmInfo()">CONFIRM</button> 
+						<button style="height:50px; width:200px;font-size:12pt;" href="#" class="btn" onClick = "clearInfo()">CLEAR</button>
+					</td>
+				</tr>
+			</table>
+			<br />
+			<span style="color: white; font-size:12pt" id = "bookingNumber"></span>
 		</div>
 	</header>
 </body>
 </html>
+
+<!-- 		
+		<div class="button">
+			<br><br>
+
+
+			<br><br>
+			First Name: <input type="text" id = "firstname"><br>
+			
+			<br><br>
+			
+			
+			<br><br>
+			<span id = "bookingNumber"></span>
+			
+		</div>
+	</header>
+-->

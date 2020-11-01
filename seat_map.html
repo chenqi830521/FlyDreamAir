@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatibale" content="ie=edge">
+		<title>Seat selection | FlyDreamAir</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<script>
+			//var bookingInfos = info.bookInfo;
+	      	var bookingReferenceInput = getParams("param1");
+	      	// alert(bookingReferenceInput);
+	      	var lastNameInput = getParams("param2");
+	      	// alert(lastNameInput);
+	      	var recordExist = false;
+	      	var bookingIndex = 0;
+	      	var obj;
+		
+
+			// refresh page
+		    function myRefresh(){
+		    	makeAjaxQuery();
+		    }
+	  
+
+		    // get the params from url  
+		    function getParams(key){
+		        // manage-booking-show-info.html?param1=000001&param2=Gates
+	            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+	            var r = window.location.search.substr(1).match(reg);
+	            if (r != null) {
+	            	return unescape(r[2]);
+	          	}
+	            return null;
+	      	}
+
+
+			function makeAjaxQuery(){
+				// create an XMLHttpRequest
+				var xhttp = new XMLHttpRequest();
+				// create a handler for the readyState change
+				xhttp.onreadystatechange = function() {
+				  readyStateChangeHandler(xhttp);
+				};
+				// making query by async call
+				xhttp.open("GET", "booking_record.json", true);
+				xhttp.send();
+			}
+
+
+	        // handler for the readyState change
+	        function readyStateChangeHandler(xhttp){
+	        	if (xhttp.readyState == 4){
+	        		// readyState = 4 means DONE
+	        		if(xhttp.status == 200){
+	            	// status = 200 means OK
+	            	handleStatusSuccess(xhttp);
+	          		}else{
+	          			// status is NOT OK
+	          			handleStatusFailure(xhttp);
+	          		}
+	        	}
+	      	}
+
+
+	      	// XMLHttpRequest success
+	      	function handleStatusSuccess(xhttp){
+	       		var jsonText = xhttp.responseText;
+	       		// parse the json into an JS object
+	        	obj = JSON.parse(jsonText);
+	        	// console.log(obj);
+	        	// display the object on the page
+	        	display(obj);
+	      	}
+
+
+	      	// XMLHttpRequest failed
+	      	function handleStatusFailure(xhttp){
+	      		alert("Request failed.");
+	        	// display error message
+	        	var displayDiv = document.getElementById("display");
+	        	displayDiv.innerHTML = "XMLHttpRequest failed: status " + xhttp.status;
+	      	}
+
+	      
+	      	// display 
+	      	function display(Obj){
+	      		// construct HTML code to display test result
+				var bookingObj = Obj.bookingRecord;
+	        	for(var i=0; i<bookingObj.length; i++){
+	        		if( (bookingReferenceInput == bookingObj[i].bookingReference) && 
+	             	 (lastNameInput == bookingObj[i].lastName)){
+		        		recordExist = true;
+		        		bookingIndex = i;
+	          		}
+	        	}
+
+	        	if(recordExist == true){
+	          	// var bookingObjInput = bookingObj[bookingIndex];
+	          	// alert(bookingObjInput.bookingReference);
+	        	}else{
+		        	alert("No record found! Please check the information you input and try again.");
+		        	var url = "seat_selection.html";
+		        	window.location.href = url;
+	        	}	
+
+	        	// show the constructed HTML code in the display div
+	        	// var displayDiv = document.getElementById("display");
+	        	// displayDiv.innerHTML = html;
+	      	}
+
+
+	      	function confirm(){
+	      		// get the selection
+	      		var seatSelected = document.getElementById("seatId");
+	      		alert("The seat you selected is " + seatSelected.options[seatSelected.selectedIndex].value);
+				var url = "seat_selection.html";
+		        window.location.href = url;      		
+			}
+
+
+	      	function cancel(){
+	      		// set 01A  selected 
+				var seatSelected = document.getElementById("seatId");
+				// alert(seatSelected.selectedIndex);
+				// alert(seatSelected.options[seatSelected.selectedIndex].value);
+				seatSelected.selectedIndex = 0;
+			}
+		</script>
+	</head>
+	
+	<body onload="myRefresh()">
+		<header>
+			<div class="main">
+				<div class="logo">
+					<img src="images/logo.png">
+				</div>
+
+				<ul>
+					<li> <a href ="index.html">Home</a></li>
+					<li><a href ="flight_booking.html">Flight booking</a></li>
+					<li><a href ="manage_booking.html">Manage booking</a></li>
+					<li class="active"><a href ="seat_selection.html">Seat selection</a></li>
+					<li><a href ="service_purchase.html">Service purchase</a></li>
+				</ul>
+			</div>
+			<!--
+			<div class="title">
+				<h2>Seat selection</h2>
+			</div>
+			-->
+		</header>
+
+
+		<div class="button">
+			<img src="images/seat.jpg" width="400" height="250">
+			<br /><br />
+			<table border="0">
+				<!--Row 1-->
+				<tr>
+					<td style="color: white; font-size:12pt">
+						Seat:
+					</td>
+				</tr>
+				<!--Row 2-->
+				<tr>
+					<td>
+						<select style="height:50px; width:400px;font-size:12pt;" name = 'row' id="seatId">
+							<option value = "01A">01A</option>
+							<option value = "01B">01B</option>
+							<option value = "02A">02A</option>
+							<option value = "02B">02B</option>
+							<option value = "03A">03A</option>
+							<option value = "03B">03B</option>
+							<option value = "04A">04A</option>
+							<option value = "04B">04B</option>
+							<option value = "05A">05A</option>
+							<option value = "05B">05B</option>
+						</select>
+					</td>
+				</tr>
+				<!--Row 3-->
+				<tr>
+					<td>
+						<button style="height:50px; width:200px;font-size:12pt;" href="#" onClick = "confirm()" class="btn" type = "submit" value = 'submit'>CONFIRM</button>
+						<button style="height:50px; width:200px;font-size:12pt;" href="#" onClick = "cancel()" class="btn" type = "reset" value = 'reset form'>CLEAR</button>	
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

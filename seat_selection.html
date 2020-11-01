@@ -1,69 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatibale" content="ie=edge">
-		<title>Seat selection | FlyDreamAir</title>
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatibale" content="ie=edge">
+	<title>Seat selection | FlyDreamAir</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="booking_record.js"></script>
 
-		<script>
+	<script>
+	function continueQuery(){
+		var firstInput = document.getElementById("bookingReferenceId");
+		var secondInput = document.getElementById("lastNameId");
+		var url = "seat_map.html?param1=" + firstInput.value + "&param2=" + secondInput.value;
+		window.location.href = url;
+	}
+	
 
-		</script>
-	</head>
+	function cancel(){
+		// clear the first text field
+		var firstInput = document.getElementById("bookingReferenceId");
+		firstInput.value = "";
+		// clear the second text field
+		var secondInput = document.getElementById("lastNameId");
+		secondInput.value = "";
+	}
+	</script>
+</head>
 
-	<body>
-		<header>
-			<div class="main">
-				<div class="logo">
-					<img src="images/logo.png">
-				</div>
-
-				<ul>
-					<li> <a href ="index.html">Home</a></li>
-					<li><a href ="flight_booking.html">Flight booking</a></li>
-					<li><a href ="manage_booking.html">Manage booking</a></li>
-					<li class="active"><a href ="seat_selection.html">Seat selection</a></li>
-					<li><a href ="service_purchase.html">Service purchase</a></li>
-				</ul>
+<body>
+	<header>
+		<div class="main">
+			<div class="logo">
+				<img src="images/logo.png">
 			</div>
-			<div class="title">
-				<h1></h1>
-			</div>
-		</header>
-
-
-		<div class="button">
-			<select name = 'row' >
-				<option value = "row" selected="selected">Row</option>
-				<option value = "40">40</option>
-				<option value = "41">41</option>
-				<option value = "42">42</option>
-				<option value = "43">43</option>
-				<option value = "44">44</option>
-				<option value = "45">45</option>
-				<option value = "46">46</option>
-			</select>
-			<select name = 'array' >
-				<option value = "Ti" selected="selected">Array</option>
-				<option value = "A">A</option>
-				<option value = "B">B</option>
-				<option value = "C">C</option>
-				<option value = "D">D</option>
-				<option value = "E">E</option>
-				<option value = "F">F</option>
-				<option value = "G">G</option>
-				<option value = "H">H</option>
-				<option value = "G">G</option>
-				<option value = "K">K</option>
-			</select>
-			<a href="#" class="btn" type = "submit" value = 'submit'>CONFIRM</a>
-			<a href="#" class="btn" type = "reset" value = 'reset form'>CLEAR</a>	
-			<br /><br />	
-			<div size = “40”>
-				<img src="images/seat.jpg">
-			</div>
+			<ul>
+				<li> <a href ="index.html">Home</a></li>
+				<li><a href ="flight_booking.html">Flight booking</a></li>
+				<li><a href ="manage_booking.html">Manage booking</a></li>
+				<li class="active"><a href ="seat_selection.html">Seat selection</a></li>
+				<li><a href ="service_purchase.html">Service selection</a></li>
+			</ul>
 		</div>
-	</body>
+
+		<div class="title">
+			<h2>Seat selection</h2>
+			<!-- <form action="http://www.flydreamair.com" method="get"> -->
+			<table border="0">
+				<!--Row 1-->
+				<tr>
+					<td style="color: white; font-size:12pt">
+						Booking reference:
+					</td>
+					<td>
+						<!--Text field for booking reference-->
+						<input type="text" name="bookingReference" style="font-size:12pt;height:45px;width:400px" id="bookingReferenceId" />
+					</td>
+				</tr>
+				<!--Row 2-->
+				<tr>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<!--Row 3-->
+				<tr>
+					<td style="color: white; font-size:12pt">
+						 Last name:
+					</td>
+					<td>
+						<!--Text field for last name-->
+						<input type="text" name="lastName" style="font-size:12pt;height:45px;width:400px" id="lastNameId"/>
+					</td>
+				</tr>
+				<!--Row 4-->
+				<tr>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<!--Row 5-->
+				<tr>
+					<td>
+					</td>
+					<td>
+						<!--2 buttons-->
+						<button style="height:50px; width:200px;font-size:12pt;" onClick = "continueQuery()" class="btn">CONTINUE</button>
+						<button style="height:50px; width:200px;font-size:12pt" onClick = "cancel()" class="btn">CLEAL</button>
+						<!-- Submit botton -->
+						<!-- <input style="height:50px; width:200px;font-size:12pt" type="submit" value="CONTINUE" /> -->
+						<!-- Reset botton -->
+						<!-- <input style="height:50px; width:200px;font-size:12pt" type="reset" value="CANCEL" /> -->
+					</td>
+				</tr>
+			</table>
+		</div>
+	</header>
+	<!--
+	<div class="title">
+		<h1>FlyDreamAir</h1>
+	</div>
+	-->
+</body>
 </html>
