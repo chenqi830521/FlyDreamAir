@@ -16,6 +16,7 @@
 	   	var lastName = getParams("param5");
 	   	// alert(lastName);
 
+
 		// get the params from url  
       	function getParams(key){
 	        // manage-booking-show-info.html?param1=000001&param2=Gates
@@ -32,10 +33,20 @@
       		// alert(window.location.href);
       		var confirmSpan = document.getElementById("bookingNumber");
 			// show details
+			/*
 			confirmSpan.innerHTML = "<table border='0'><tr><td>Booking reference: </td><td>" + bookingReference + "</td></tr>"
 				                  + "<tr><td>Name: </td><td>" + firstName + " " + lastName + "</td></tr>"
 				                  + "<tr><td>Trip: </td><td>" + tripInput + "</td></tr>"
 				                  + "<tr><td>Flight time: </td><td>" + timeInput + "</td></tr></table>";
+			*/
+			confirmSpan.innerHTML = "<table border='0'><tr><td>Booking reference: </td><td>" + "000860" + "</td></tr>"
+				                  + "<tr><td>Name: </td><td>" + firstName + " " + lastName + "</td></tr>"
+				                  + "<tr><td>Trip: </td><td>" + tripInput + "</td></tr>"
+				                  + "<tr><td>Flight time: </td><td>" + timeInput + "</td></tr>"
+				                  + "<tr><td>Seat number: </td><td>" + "03B (Allocated by system)" + "</td></tr>"
+				                  + "<tr><td>Food and drink: </td><td>" + "Combo A (Defaul by system)" 
+				                  + "</td></tr></table>";
+
       	}
 
 

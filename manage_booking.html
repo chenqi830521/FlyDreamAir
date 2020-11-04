@@ -16,6 +16,14 @@
 		var url = "manage_booking_show_info.html?param1=" + firstInput.value + "&param2=" + secondInput.value;
 		window.location.href = url;
 	}
+
+
+	function continueQuery1(){
+		var firstInput = document.getElementById("bookingReferenceId");
+		var secondInput = document.getElementById("lastNameId");
+		var url = "manage_booking_show_info1.html?param1=" + firstInput.value + "&param2=" + secondInput.value;
+		window.location.href = url;
+	}
 	
 
 	function cancel(){
@@ -89,11 +97,19 @@
 					<td>
 						<!--2 buttons-->
 						<button style="height:50px; width:200px;font-size:12pt;" onClick = "continueQuery()" class="btn">CONTINUE</button>
-						<button style="height:50px; width:200px;font-size:12pt" onClick = "cancel()" class="btn">CLEAL</button>
+						<button style="height:50px; width:200px;font-size:12pt" onClick = "cancel()" class="btn">CLEAR</button>
 						<!-- Submit botton -->
 						<!-- <input style="height:50px; width:200px;font-size:12pt" type="submit" value="CONTINUE" /> -->
 						<!-- Reset botton -->
 						<!-- <input style="height:50px; width:200px;font-size:12pt" type="reset" value="CANCEL" /> -->
+					</td>
+				</tr>
+				<!--Row 6-->
+				<tr>
+					<td>
+					</td>
+					<td>
+						<input type="submit" style="background:transparent; border:none; color:transparent;" onClick = "continueQuery1()">
 					</td>
 				</tr>
 			</table>

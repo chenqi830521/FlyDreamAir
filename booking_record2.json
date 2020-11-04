@@ -23,9 +23,9 @@
 			"firstName": "Yanan",
 			"lastName": "Chen",
 			"trip":"Brisbane - Sydney",
-			"flightTime": "15:00pm",
-			"seatNo": "03B",
-			"foodAndDrink": "Combo A"
+			"flightTime": "09:00pm",
+			"seatNo": "03A",
+			"foodAndDrink": "Combo B"
 		},
 		{
 			"bookingReference": "000248",
